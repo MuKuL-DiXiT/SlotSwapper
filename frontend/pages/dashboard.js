@@ -47,11 +47,11 @@ export default function Dashboard(){
         <form onSubmit={create} className="mt-2">
           <div><input placeholder="Title" value={title} onChange={e=>setTitle(e.target.value)} /></div>
           <div className="mt-2">
-            <label className="block text-sm text-gray-600">Start</label>
+            <label className="block text-sm muted">Start</label>
             <DatePicker selected={startTime} onChange={(d)=>setStartTime(d)} showTimeSelect dateFormat="Pp" />
           </div>
           <div className="mt-2">
-            <label className="block text-sm text-gray-600">End</label>
+            <label className="block text-sm muted">End</label>
             <DatePicker selected={endTime} onChange={(d)=>setEndTime(d)} showTimeSelect dateFormat="Pp" />
           </div>
           <button type="submit">Create</button>
@@ -65,7 +65,7 @@ export default function Dashboard(){
             <li key={ev._id} className="p-3 bg-white rounded shadow-sm flex justify-between items-center">
               <div>
                 <strong>{ev.title}</strong>
-                <div className="text-sm text-gray-600">{new Date(ev.startTime).toLocaleString()} to {new Date(ev.endTime).toLocaleString()}</div>
+                <div className="text-sm muted">{new Date(ev.startTime).toLocaleString()} to {new Date(ev.endTime).toLocaleString()}</div>
               </div>
               <div>
                 <div className="text-sm">{ev.status}</div>

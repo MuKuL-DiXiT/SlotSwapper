@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { useAuth } from '../src/auth'
+import { useAuth, API_BASE } from '../src/auth'
 import Layout from '../components/Layout'
+import Link from 'next/link'
 
 export default function Signup(){
   const [name, setName] = useState('')
@@ -10,7 +11,7 @@ export default function Signup(){
 
   const submit = async (e) => {
     e.preventDefault()
-    const res = await fetch('/api/auth/signup', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ name, email, password }) })
+    const res = await fetch(`${API_BASE}/api/auth/signup`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ name, email, password }) })
     const data = await res.json()
     if (res.ok) login(data.token, data.user)
     else alert(data.message || 'Error')
@@ -26,6 +27,7 @@ export default function Signup(){
           <div><input type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} /></div>
           <button type="submit">Sign up</button>
         </form>
+        <p className="mt-4 text-sm muted">Already have an account? <Link href="/login">Log in</Link></p>
       </div>
     </Layout>
   )

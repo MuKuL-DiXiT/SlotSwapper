@@ -43,7 +43,8 @@ API
 Notes and assumptions
 - MongoDB connection string is taken from `.env` (see `.env.example`).
 - JWT is used for authentication and sent as `Authorization: Bearer <token>` header.
-- The frontend proxies `/api/*` to `http://localhost:4000/api/*` for local development (see `frontend/next.config.js`).
+- The frontend calls the backend directly at `http://localhost:4000` (or use `NEXT_PUBLIC_API_URL` to change).
+- The backend enables CORS (currently permissive) so the frontend can call APIs across origins. If you deploy, set `NEXT_PUBLIC_API_URL` to your backend's URL and restrict CORS origins in `backend/src/index.js` or `src/config/db.js` as appropriate.
 
 Next steps / TODO
 - Add integration tests for swap logic

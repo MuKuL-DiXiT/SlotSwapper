@@ -27,6 +27,16 @@
       "static/chunks/main.js",
       "static/chunks/pages/dashboard.js"
     ],
+    "/login": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/login.js"
+    ],
+    "/marketplace": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/marketplace.js"
+    ],
     "/requests": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",

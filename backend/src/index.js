@@ -8,7 +8,16 @@ const eventRoutes = require('./routes/events');
 const swapRoutes = require('./routes/swaps');
 
 const app = express();
-app.use(cors());
+// CORS options to avoid cors issues
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || process.env.FRONTEND_URL || 'http://localhost:3000';
+const corsOptions = {
+	origin: FRONTEND_ORIGIN,
+	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+	allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+	credentials: true,
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 
 const mongoose = require('mongoose');
@@ -34,5 +43,13 @@ app.get('/health', async (req, res) => {
 	}
 });
 
+const http = require('http');
+const { Server } = require('socket.io');
+const { initSocket } = require('./socket');
+
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+const server = http.createServer(app);
+const io = new Server(server, { cors: { origin: '*' } });
+initSocket(io);
+
+server.listen(PORT, () => console.log(`Server started on port ${PORT}`));

@@ -1,6 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import Router from 'next/router'
 
+// Base URL for the backend API. Frontend will call `${API_BASE}/api/...`
+export const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'
+
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
@@ -35,7 +38,8 @@ export function AuthProvider({ children }) {
   const authFetch = (url, opts = {}) => {
     const headers = opts.headers || {}
     if (token) headers['Authorization'] = `Bearer ${token}`
-    return fetch(url, { ...opts, headers: { 'Content-Type': 'application/json', ...headers } })
+    const fetchUrl = url.startsWith('http') ? url : `${API_BASE}${url}`
+    return fetch(fetchUrl, { ...opts, headers: { 'Content-Type': 'application/json', ...headers } })
   }
 
   return (

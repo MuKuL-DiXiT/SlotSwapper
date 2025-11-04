@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { useAuth } from '../src/auth'
+import { useAuth, API_BASE } from '../src/auth'
 import Layout from '../components/Layout'
+import Link from 'next/link'
 
 export default function Login(){
   const [email, setEmail] = useState('')
@@ -9,7 +10,7 @@ export default function Login(){
 
   const submit = async (e) => {
     e.preventDefault()
-    const res = await fetch('/api/auth/login', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ email, password }) })
+    const res = await fetch(`${API_BASE}/api/auth/login`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ email, password }) })
     const data = await res.json()
     if (res.ok) login(data.token, data.user)
     else alert(data.message || 'Error')
@@ -24,6 +25,7 @@ export default function Login(){
           <div><input type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} /></div>
           <button type="submit">Log in</button>
         </form>
+        <p className="mt-4 text-sm muted">Don't have an account? <Link href="/signup">Sign up</Link></p>
       </div>
     </Layout>
   )

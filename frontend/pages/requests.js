@@ -42,7 +42,7 @@ export default function Requests(){
               <div className="flex justify-between items-center">
                 <div>
                   <div className="font-medium">{r.requester?.name} offered <span className="font-semibold">{r.myEvent?.title}</span> for your <span className="font-semibold">{r.theirEvent?.title}</span></div>
-                  <div className="text-sm text-gray-600">Status: {r.status}</div>
+                  <div className="text-sm muted">Status: {r.status}</div>
                 </div>
                 <div>
                   {r.status==='PENDING' && (

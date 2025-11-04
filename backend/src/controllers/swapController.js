@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const SwapRequest = require('../models/SwapRequest');
 const Event = require('../models/Event');
+const { notifyUser } = require('../socket');
 
 exports.createSwapRequest = async (req, res) => {
   const { myEventId, theirEventId } = req.body;
@@ -30,8 +31,10 @@ exports.createSwapRequest = async (req, res) => {
     theirEvent.status = Event.Status.SWAP_PENDING;
     await myEvent.save({ session });
     await theirEvent.save({ session });
-    await session.commitTransaction();
-    return res.json(swap);
+  await session.commitTransaction();
+  // notify the responder in real-time (if connected)
+  try { notifyUser(theirEvent.owner, 'swap-request', swap); } catch (e) { /* ignore notify errors */ }
+  return res.json(swap);
   } catch (err) {
     console.error(err);
     await session.abortTransaction();
@@ -98,8 +101,10 @@ exports.respondToSwap = async (req, res) => {
     await myEvent.save({ session });
     await theirEvent.save({ session });
     await swap.save({ session });
-    await session.commitTransaction();
-    return res.json({ message: 'Accepted' });
+  await session.commitTransaction();
+  // notify the requester that their request was accepted
+  try { notifyUser(requesterId, 'swap-accepted', swap); } catch (e) { /* ignore */ }
+  return res.json({ message: 'Accepted' });
   } catch (err) {
     console.error(err);
     await session.abortTransaction();
