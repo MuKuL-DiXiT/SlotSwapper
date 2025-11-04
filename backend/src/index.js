@@ -9,7 +9,7 @@ const swapRoutes = require('./routes/swaps');
 
 const app = express();
 // CORS options to avoid cors issues
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || process.env.FRONTEND_URL || 'http://localhost:3000';
+const FRONTEND_ORIGIN =  process.env.FRONTEND_URL || 'http://localhost:3000';
 const corsOptions = {
 	origin: FRONTEND_ORIGIN,
 	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
