@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--bg: #0f172a; /* slate-900 */
+	--panel: #0b1220;
+	--muted: #94a3b8;
+	--accent: #7c3aed; /* purple-600 */
+}
+
+@layer base {
+	html { height: 100%; }
+	body { @apply bg-white text-gray-900; font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+	.dark body { background-color: #0b1220; color: #e6edf3 }
+}
+
+/* form controls */
+input { @apply p-2 my-2 border rounded w-full bg-white text-gray-900 }
+button { @apply ml-2 px-3 py-1 bg-indigo-600 text-white rounded }
+
+/* dark mode overrides */
+.dark input { @apply bg-slate-800 text-slate-100 border-slate-700 }
+.dark button { @apply bg-purple-600 }
+
+.card { @apply bg-white dark:bg-slate-800 rounded-lg shadow-md p-4 }
+.container { @apply max-w-4xl mx-auto p-6 }

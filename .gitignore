@@ -1,0 +1,29 @@
+# Ignore environment variable files
+.env
+.env.*
+*.env
+**/.env
+**/.env.*
+
+# Ignore node_modules everywhere
+node_modules/
+**/node_modules/
+
+# Ignore build outputs
+build/
+dist/
+**/build/
+**/dist/
+
+# Ignore logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Ignore editor and OS junk files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
