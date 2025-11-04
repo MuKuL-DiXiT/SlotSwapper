@@ -3,11 +3,21 @@ import { useAuth } from '../src/auth'
 import Layout from '../components/Layout'
 
 export default function Requests(){
-  const { user, authFetch, logout } = useAuth()
+  const { user, authFetch, logout, socketMessage, clearSocketMessage } = useAuth()
   const [incoming, setIncoming] = useState([])
   const [outgoing, setOutgoing] = useState([])
 
   useEffect(()=>{ if (user) load() }, [user])
+
+  // reload when a relevant socket notification arrives
+  useEffect(()=>{
+    if (!user || !socketMessage) return
+    if (socketMessage.event === 'swap-request' || socketMessage.event === 'swap-accepted') {
+      load()
+      // clear the notification so it doesn't trigger repeatedly
+      clearSocketMessage()
+    }
+  }, [socketMessage])
 
   const load = async ()=>{
     const res = await authFetch('/api/swap-requests')

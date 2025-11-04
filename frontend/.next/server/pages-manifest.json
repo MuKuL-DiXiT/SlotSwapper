@@ -1,9 +1,1 @@
-{
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/login": "pages/login.js",
-  "/requests": "pages/requests.js",
-  "/dashboard": "pages/dashboard.js",
-  "/marketplace": "pages/marketplace.js"
-}
+{}
